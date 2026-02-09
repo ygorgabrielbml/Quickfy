@@ -1,5 +1,5 @@
 import { RememberMe } from "./RememberMe";
-import { Input } from "../../components/Input";
+import { Input } from "../../components/AuthInput";
 import { AuthButton } from "../../components/AuthButton";
 
 export function LoginForm(){
