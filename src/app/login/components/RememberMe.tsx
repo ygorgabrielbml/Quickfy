@@ -1,21 +1,30 @@
-export function RememberMe(){
+export function RememberMeCheckbox({ checked, onChange }: { checked: boolean; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
   return (
-    <div className="flex items-center justify-between text-xs">
-        <label className="flex items-center gap-2 cursor-pointer group">
-        <input
+    <div className="flex items-center justify-between">
+      <label className="flex items-center cursor-pointer group">
+        <div className="relative">
+          <input
             type="checkbox"
-            className="w-4 h-4 rounded-md border-white/20 bg-zinc-800/50
-                    checked:bg-white checked:border-white
-                    focus:ring-2 focus:ring-white/20 focus:ring-offset-0
-                    transition-all cursor-pointer"
-        />
-        <span className="text-zinc-400 group-hover:text-zinc-300 transition-colors">
-            Remember me
+            checked={checked}
+            onChange={onChange}
+            className="sr-only"
+          />
+          <div className={`w-4 h-4 rounded border-2 transition-colors flex items-center justify-center ${
+            checked 
+              ? 'bg-white border-white' 
+              : 'bg-zinc-800/50 border-white/10'   
+          }`}>
+            {checked && (
+              <span className="material-symbols-outlined text-zinc-900 text-[10px] leading-none">
+                check
+              </span>
+            )}
+          </div>
+        </div>
+        <span className="ml-2 text-sm text-white/60 group-hover:text-white/80 transition-colors">
+          Remember me
         </span>
-        </label>
-        <a href="#" className="text-zinc-400 hover:text-white transition-colors">
-        Forgot password?
-        </a>
+      </label>
     </div>
-  )
+  );
 }

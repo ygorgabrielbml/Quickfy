@@ -1,8 +1,20 @@
+'use client'
+import { useRouter } from 'next/navigation'
 import { LoginForm } from "./LoginForm";
 import { LoginHeader } from "./LoginHeader";
 import { AuthLink } from "../../components/AuthLink";
 
 export function LoginCard(){
+  const router = useRouter()
+
+  const handleLoginSuccess = (result: any) => {
+    if (result.token) {
+      localStorage.setItem('token', result.token);
+    }
+
+    router.push('/dashboard')
+  }
+  
   return (
     <div
       className="w-full max-w-sm
@@ -13,7 +25,8 @@ export function LoginCard(){
               text-zinc-100">
                 
       <LoginHeader/>
-      <LoginForm/>
+      <LoginForm onSubmit={handleLoginSuccess}/>
+      
       <AuthLink 
         text="Don't have an account?" 
         linkText="Create account" 

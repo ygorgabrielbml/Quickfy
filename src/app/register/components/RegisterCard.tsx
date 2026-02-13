@@ -14,6 +14,7 @@ export function RegisterCard(){
       
         <RegisterHeader/>
         <RegisterForm/>
+        
         <AuthLink 
           text="Already have an account?" 
           linkText="Sign in instead" 
