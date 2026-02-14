@@ -2,31 +2,24 @@
 
 import { Input } from "../../components/AuthInput";
 import { AuthButton } from "../../components/AuthButton";
-import { GoogleButton } from "../../components/GoogleButton";
-import { Divider } from "../../components/Divider";
 import { useState } from 'react';
 
 export function RegisterForm() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
 
-  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
-    }
 
     try {
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch("/api/register", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({name, email, password})
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
       });
 
       const result = await response.json();
@@ -37,83 +30,77 @@ export function RegisterForm() {
       }
       
       alert("Account created successfully!");
+      window.location.href = '/login';
     } catch (error) {
       console.error("Registration error:", error);
       alert("Connection error. Please try again.");
     }
   };
 
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
-  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
-
   return (
-    <>
-      <form onSubmit={handleSubmit} className="space-y-5">
-      <Input 
-        id="name"
-        type="text" 
-        placeholder="Full name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        icon="person"
-        required
-      />
+    <form onSubmit={handleSubmit} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-2xl px-8">
+      <h1 className="text-white text-3xl mt-10 font-medium">Sign up</h1>
+      <p className="text-gray-400 text-sm mt-2">Please sign in to continue</p>
 
-      <Input 
-        id="email"
-        type="email" 
-        placeholder="Email address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        icon="mail"
-        required
-      />
+      <div className="mt-6">
+        <Input
+          name="name"
+          type="text"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Name"
+          required
+          icon={
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/60" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="8" r="5" />
+              <path d="M20 21a8 8 0 0 0-16 0" />
+            </svg>
+          }
+        />
+      </div>
 
-      <Input 
-        id="password"
-        type={showPassword ? 'text' : 'password'} 
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        icon="lock"
-        required
-        rightElement={
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center text-white/40 hover:text-white/60 transition-colors cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-[16px] leading-none">visibility</span>
-          </button>
-        }
-      />
+      <div className="mt-4">
+        <Input
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          required
+          icon={
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+            </svg>
+          }
+        />
+      </div>
 
-      <Input 
-        id="confirmPassword"
-        type={showConfirmPassword ? 'text' : 'password'} 
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        icon="lock"
-        required
-        rightElement={
-          <button
-            type="button"
-            onClick={toggleConfirmPasswordVisibility}
-            className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center text-white/40 hover:text-white/60 transition-colors cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-[16px] leading-none">visibility</span>
-          </button>
-        }
-      />
+      <div className="mt-4">
+        <Input
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Password"
+          required
+          icon={
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          }
+        />
+      </div>
 
-        <div className="mt-6">
-          <AuthButton>Create account</AuthButton>
-        </div>
-      </form>
+      <AuthButton>
+        Sign up
+      </AuthButton>
 
-      <Divider />
-      <GoogleButton text="Sign up with Google" />
-    </>
-  )
+      <p className="text-gray-400 text-sm mt-3 mb-11">
+        Already have an account?
+        <a href="/login" className="text-indigo-400 hover:underline ml-1">click here</a>
+      </p>
+    </form>
+  );
 }

@@ -1,14 +1,9 @@
-import { AcrylicBackground } from "../components/AcrylicBackground";
-import { LoginCard } from "./components/LoginCard";
+import { LoginForm } from "./components/LoginForm";
 
 export default function LoginPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black">
-      <AcrylicBackground/>
-
-      <div className="relative min-h-screen flex items-center justify-center px-4">
-        <LoginCard/>
-      </div>
+    <div className="min-h-screen flex items-center justify-center px-4 bg-linear-to-br from-slate-800 via-gray-900 to-indigo-900">
+      <LoginForm/>
     </div>
   );
 }

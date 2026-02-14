@@ -1,52 +1,28 @@
 interface InputProps {
-  id?: string;
+  name: string;
   type: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
-  label?: string;
-  icon?: string;
+  icon: React.ReactNode;
   required?: boolean;
-  rightElement?: React.ReactNode; 
+  rightElement?: React.ReactNode;
 }
 
-export function Input({ 
-  id, 
-  type, 
-  value, 
-  onChange, 
-  placeholder, 
-  label, 
-  icon, 
-  required = false,
-  rightElement 
-}: InputProps) {
+export function Input({ name, type, value, onChange, placeholder, icon, required = false, rightElement }: InputProps) {
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-white/70 mb-2">
-        {label}
-      </label>
-      <div className="relative">
-        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-[16px]">
-          {icon}
-        </span>
-        <input
-          id={id}
-          type={type}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          required={required}
-          className="w-full h-11 rounded-xl
-              bg-zinc-800/50
-              border border-white/10
-              pl-10 pr-4 text-sm text-white
-              placeholder:text-zinc-500
-              focus:outline-none focus:border-white/20 focus:bg-zinc-800/60
-              transition-all"
-        />
-        {rightElement}
-      </div>
+    <div className="flex items-center w-full bg-white/5 ring-2 ring-white/10 focus-within:ring-indigo-500/60 h-12 rounded-full overflow-hidden pl-6 gap-2 transition-all relative">
+      {icon}
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="w-full bg-transparent text-white placeholder-white/60 border-none outline-none pr-10"
+      />
+      {rightElement}
     </div>
   );
 }

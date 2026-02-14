@@ -1,30 +1,26 @@
 export function RememberMeCheckbox({ checked, onChange }: { checked: boolean; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
   return (
-    <div className="flex items-center justify-between">
-      <label className="flex items-center cursor-pointer group">
-        <div className="relative">
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={onChange}
-            className="sr-only"
-          />
-          <div className={`w-4 h-4 rounded border-2 transition-colors flex items-center justify-center ${
-            checked 
-              ? 'bg-white border-white' 
-              : 'bg-zinc-800/50 border-white/10'   
-          }`}>
-            {checked && (
-              <span className="material-symbols-outlined text-zinc-900 text-[10px] leading-none">
-                check
-              </span>
-            )}
-          </div>
-        </div>
-        <span className="ml-2 text-sm text-white/60 group-hover:text-white/80 transition-colors">
-          Remember me
-        </span>
-      </label>
-    </div>
+    <label className="flex items-center cursor-pointer">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="sr-only"
+      />
+      <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${
+        checked 
+          ? 'bg-indigo-600 border-indigo-600' 
+          : 'bg-white/5 border-white/20'
+      }`}>
+        {checked && (
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        )}
+      </div>
+      <span className="ml-2 text-sm text-gray-400">
+        Remember me
+      </span>
+    </label>
   );
 }

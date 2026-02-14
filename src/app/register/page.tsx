@@ -1,15 +1,9 @@
-import { AcrylicBackground } from "../components/AcrylicBackground";
-import { RegisterCard } from "./components/RegisterCard";
-
+import { RegisterForm } from "./components/RegisterForm";
 
 export default function RegisterPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black">
-      <AcrylicBackground/>
-
-      <div className="relative min-h-screen flex items-center justify-center px-4">
-        <RegisterCard/>
-      </div>
+    <div className="min-h-screen flex items-center justify-center px-4 bg-linear-to-br from-slate-800 via-gray-900 to-indigo-900">
+      <RegisterForm/>
     </div>
   );
 }

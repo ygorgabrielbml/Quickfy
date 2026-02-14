@@ -1,18 +1,15 @@
 interface AuthButtonProps {
   children: React.ReactNode;
+  type?: 'submit' | 'button';
 }
 
-export function AuthButton({ children }: AuthButtonProps) {
+export function AuthButton({ children, type = 'submit' }: AuthButtonProps) {
   return (
-    <button
-      type="submit"
-      className="w-full h-11 rounded-xl font-medium text-sm
-              bg-zinc-100 text-black
-              hover:bg-zinc-200
-              active:scale-95
-              transition-all cursor-pointer"
+    <button 
+      type={type} 
+      className="mt-6 w-full h-11 rounded-full text-white bg-indigo-600 hover:bg-indigo-500 transition cursor-pointer"
     >
       {children}
     </button>
-  )
+  );
 }
