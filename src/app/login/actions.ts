@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { redirect } from "next/navigation";
-import { createSession } from "../../lib/auth/session";
+import { createSession, deleteSession } from "../../lib/auth/session";
 
 const testUser = {
   id: "1",
@@ -39,4 +39,9 @@ export async function login(prevState: any, formData: FormData) {
   await createSession(testUser.id);
 
   redirect("/dashboard");
+}
+
+export async function logout() {
+  await deleteSession();
+  redirect("/login")
 }

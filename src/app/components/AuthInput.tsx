@@ -19,7 +19,7 @@ export function Input({
         type={type}
         placeholder={placeholder}
         {...rest}  
-        className="w-full bg-transparent text-white placeholder-white/60 border-none outline-none pr-10"
+        className="w-full bg-transparent text-white placeholder-white/60 border-none outline-none pr-10 caret-white autofill:bg-transparent autofill:text-white autofill:shadow-[inset_0_0_0px_1000px_transparent]"
       />
       {rightElement}
     </div>
