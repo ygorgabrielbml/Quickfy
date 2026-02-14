@@ -3,46 +3,24 @@
 import { Input } from "../../components/AuthInput";
 import { AuthButton } from "../../components/AuthButton";
 import { RememberMeCheckbox } from "./RememberMe";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { login } from '../actions';
 
 export function LoginForm() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [state, loginAction] = useActionState(login, undefined);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  useEffect(() => {
+    if (state?.message) {
+      alert(state.message);
+    }
+  }, [state?.message]);
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        alert(result.error || "Invalid credentials");
-        return;
-      }
-      
-      // Salvar token e redirecionar
-      localStorage.setItem('accessToken', result.accessToken);
-      window.location.href = '/dashboard';
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Connection error. Please try again.");
-    }  
-  };
-  
   return (
-    <form onSubmit={handleSubmit} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-2xl px-8">
+    <form action={loginAction} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-2xl px-8">
       <h1 className="text-white text-3xl mt-10 font-medium">Login</h1>
       <p className="text-gray-400 text-sm mt-2">Please sign in to continue</p>
 
@@ -50,10 +28,7 @@ export function LoginForm() {
         <Input
           name="email"
           type="email"
-          value={formData.email}
-          onChange={handleChange}
           placeholder="Email"
-          required
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
@@ -61,16 +36,19 @@ export function LoginForm() {
             </svg>
           }
         />
+        {state?.errors?.email && (
+          <p className="text-red-400 text-xs mt-1 text-left">
+            {state.errors.email[0]}
+          </p>
+        )}
+
       </div>
 
       <div className="mt-4">
         <Input
           name="password"
           type={showPassword ? "text" : "password"}
-          value={formData.password}
-          onChange={handleChange}
           placeholder="Password"
-          required
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
@@ -101,6 +79,12 @@ export function LoginForm() {
             </button>
           }
         />
+        {state?.errors?.password && (
+          <p className="text-red-400 text-xs mt-1 text-left">
+            {state.errors.password[0]}
+          </p>
+        )}
+
       </div>
 
       <div className="mt-4 flex items-center justify-between">
@@ -113,14 +97,22 @@ export function LoginForm() {
         </button>
       </div>
 
-      <AuthButton>
-        Login
-      </AuthButton>
+      <SubmitButton />
 
       <p className="text-gray-400 text-sm mt-3 mb-11">
         Don't have an account?
         <a href="/register" className="text-indigo-400 hover:underline ml-1">click here</a>
       </p>
     </form>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  
+  return (
+    <AuthButton disabled={pending}>
+      {pending ? "Entrando..." : "Login"}
+    </AuthButton>
   );
 }

@@ -5,38 +5,7 @@ import { AuthButton } from "../../components/AuthButton";
 import { useState } from 'react';
 
 export function RegisterForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        alert(result.error || "Registration failed");
-        return;
-      }
-      
-      alert("Account created successfully!");
-      window.location.href = '/login';
-    } catch (error) {
-      console.error("Registration error:", error);
-      alert("Connection error. Please try again.");
-    }
-  };
-
+  
   return (
     <form onSubmit={handleSubmit} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-2xl px-8">
       <h1 className="text-white text-3xl mt-10 font-medium">Sign up</h1>
