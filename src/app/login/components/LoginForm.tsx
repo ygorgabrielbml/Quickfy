@@ -41,7 +41,6 @@ export function LoginForm() {
             {state.errors.email[0]}
           </p>
         )}
-
       </div>
 
       <div className="mt-4">

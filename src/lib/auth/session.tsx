@@ -17,7 +17,7 @@ export async function createSession(userId: string) {
 }
 
 export async function deleteSession() {
-  cookies().delete("session");
+  (await cookies()).delete("session");
 }
 
 type SessionPayload = {
