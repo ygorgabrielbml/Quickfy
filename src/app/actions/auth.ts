@@ -1,19 +1,9 @@
 "use server";
 
-import { z } from "zod";
 import { redirect } from "next/navigation";
+import { loginSchema } from "../../lib/validations/auth";
+import { testUser } from "../../lib/data/users";
 import { createSession, deleteSession } from "../../lib/auth/session";
-
-const testUser = {
-  id: "1",
-  email: "ygorgabrielbml@gmail.com",
-  password: "1234a5678",
-};
-
-const loginSchema = z.object({
-  email: z.string().pipe(z.email({ message: "Email inválido" }).trim()),
-  password: z.string().min(8, { message: "Senha precisa ter no mínimo 8 caracteres" }).trim(),
-});
 
 export async function login(prevState: any, formData: FormData) {
   const result = loginSchema.safeParse(Object.fromEntries(formData));
@@ -43,5 +33,5 @@ export async function login(prevState: any, formData: FormData) {
 
 export async function logout() {
   await deleteSession();
-  redirect("/login")
+  redirect("/login");
 }

@@ -1,23 +1,24 @@
 "use client"
 
 import { Input } from "../../components/AuthInput";
-import { AuthButton } from "../../components/AuthButton";
+import { PasswordToggle } from "../../components/PasswordToggle";
+import { EmailIcon, LockIcon } from "../../components/Icons";
+import { FieldError } from "../../components/ui/FieldError";
 import { RememberMeCheckbox } from "./RememberMe";
-import { useState, useEffect } from 'react';
+import { SubmitButton } from "./SubmitButton";
+import { useState } from 'react';
 import { useActionState } from 'react';
-import { useFormStatus } from 'react-dom';
-import { login } from '../actions';
+import { useFormErrors } from '../../../lib/errors/useFormErrors';
+import { login } from '../../actions/auth';
 
 export function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [state, loginAction] = useActionState(login, undefined);
 
-  useEffect(() => {
-    if (state?.message) {
-      alert(state.message);
-    }
-  }, [state?.message]);
+  console.log('LoginForm state:', state);
+  
+  useFormErrors(state);
 
   return (
     <form action={loginAction} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-2xl px-8">
@@ -29,18 +30,9 @@ export function LoginForm() {
           name="email"
           type="email"
           placeholder="Email"
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
-              <rect x="2" y="4" width="20" height="16" rx="2" />
-            </svg>
-          }
+          icon={<EmailIcon />}
         />
-        {state?.errors?.email && (
-          <p className="text-red-400 text-xs mt-1 text-left">
-            {state.errors.email[0]}
-          </p>
-        )}
+        <FieldError message={state?.errors?.email} />
       </div>
 
       <div className="mt-4">
@@ -48,42 +40,15 @@ export function LoginForm() {
           name="password"
           type={showPassword ? "text" : "password"}
           placeholder="Password"
-          icon={
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
-          }
+          icon={<LockIcon />}
           rightElement={
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 text-white/40 hover:text-white/60 transition-colors cursor-pointer"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                {showPassword ? (
-                  <>
-                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
-                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
-                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
-                    <line x1="2" x2="22" y1="2" y2="22" />
-                  </>
-                ) : (
-                  <>
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </>
-                )}
-              </svg>
-            </button>
+            <PasswordToggle 
+              showPassword={showPassword} 
+              onToggle={() => setShowPassword(!showPassword)} 
+            />
           }
         />
-        {state?.errors?.password && (
-          <p className="text-red-400 text-xs mt-1 text-left">
-            {state.errors.password[0]}
-          </p>
-        )}
-
+        <FieldError message={state?.errors?.password} />
       </div>
 
       <div className="mt-4 flex items-center justify-between">
@@ -95,7 +60,6 @@ export function LoginForm() {
           Forget password?
         </button>
       </div>
-
       <SubmitButton />
 
       <p className="text-gray-400 text-sm mt-3 mb-11">
@@ -103,15 +67,5 @@ export function LoginForm() {
         <a href="/register" className="text-indigo-400 hover:underline ml-1">click here</a>
       </p>
     </form>
-  );
-}
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  
-  return (
-    <AuthButton disabled={pending}>
-      {pending ? "Entrando..." : "Login"}
-    </AuthButton>
   );
 }
