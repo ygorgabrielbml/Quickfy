@@ -2,11 +2,12 @@
 
 import { z } from "zod";
 import { redirect } from "next/navigation";
+import { createSession } from "../../lib/auth/session";
 
 const testUser = {
   id: "1",
-  email: "contact@cosdensolutions.io",
-  password: "12345678",
+  email: "ygorgabrielbml@gmail.com",
+  password: "1234a5678",
 };
 
 const loginSchema = z.object({
@@ -20,7 +21,10 @@ export async function login(prevState: any, formData: FormData) {
   if (!result.success) {
     const formatted = result.error.format();
     return {
-      errors: result.error.flatten().fieldErrors,
+      errors: {
+        email: formatted.email?._errors,
+        password: formatted.password?._errors,
+      },
     };
   }
 
@@ -32,7 +36,7 @@ export async function login(prevState: any, formData: FormData) {
     };
   }
 
-  // await createSession(testUser.id);
+  await createSession(testUser.id);
 
   redirect("/dashboard");
 }
