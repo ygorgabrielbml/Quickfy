@@ -40,6 +40,6 @@ export async function decrypt(session: string | undefined = "") {
     });
     return payload;
   } catch (error) {
-    console.log("Falha na verificação da sessão")
+    return null;
   }
 }
