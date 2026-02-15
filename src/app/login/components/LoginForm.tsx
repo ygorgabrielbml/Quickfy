@@ -9,7 +9,7 @@ import { SubmitButton } from "./SubmitButton";
 import { useState } from 'react';
 import { useActionState } from 'react';
 import { useFormErrors } from '@/lib/errors/useFormErrors';
-import { login } from '@/app/actions/auth';
+import { login } from '@/app/actions/auth.actions';
 
 export function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);

@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/errors";
-import { loginSchema } from "@/lib/validations/auth";
+import { loginSchema } from "@/lib/validations/auth.schema";
 import { testUser } from "@/lib/data/users";
 import { createSession, deleteSession } from "@/lib/auth/session";
 
