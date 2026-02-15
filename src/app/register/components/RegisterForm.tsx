@@ -2,9 +2,26 @@
 
 import { Input } from "../../components/AuthInput";
 import { AuthButton } from "../../components/AuthButton";
+import { PasswordToggle } from "../../components/PasswordToggle";
 import { useState } from 'react';
 
 export function RegisterForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    userType: '' as '' | 'customer' | 'provider'
+  });
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formData);
+  };
   
   return (
     <form onSubmit={handleSubmit} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-2xl px-8">
@@ -48,7 +65,7 @@ export function RegisterForm() {
       <div className="mt-4">
         <Input
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={formData.password}
           onChange={handleChange}
           placeholder="Password"
@@ -59,7 +76,52 @@ export function RegisterForm() {
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
           }
+          rightElement={
+            <PasswordToggle 
+              showPassword={showPassword} 
+              onToggle={() => setShowPassword(!showPassword)} 
+            />
+          }
         />
+      </div>
+
+      <div className="mt-4">
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => setFormData({ ...formData, userType: 'customer' })}
+            className={`flex-1 py-3 px-4 rounded-lg border transition-all ${
+              formData.userType === 'customer'
+                ? 'bg-indigo-500/20 border-indigo-500 text-white'
+                : 'bg-white/5 border-white/10 text-white/60 hover:border-white/20'
+            }`}
+          >
+            <div className="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span className="text-sm font-medium">Customer</span>
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={() => setFormData({ ...formData, userType: 'provider' })}
+            className={`flex-1 py-3 px-4 rounded-lg border transition-all ${
+              formData.userType === 'provider'
+                ? 'bg-indigo-500/20 border-indigo-500 text-white'
+                : 'bg-white/5 border-white/10 text-white/60 hover:border-white/20'
+            }`}
+          >
+            <div className="flex flex-col items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+              <span className="text-sm font-medium">Provider</span>
+            </div>
+          </button>
+        </div>
       </div>
 
       <AuthButton>
