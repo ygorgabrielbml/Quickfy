@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quickfy
 
-## Getting Started
+Aplicação web full-stack construída com Next.js para autenticação, sessão segura e base escalável para funcionalidades de agendamento em tempo real.
 
-First, run the development server:
+## Visão Geral
+
+O Quickfy é um projeto em desenvolvimento com foco em:
+
+- autenticação de usuários
+- gerenciamento de sessão no servidor
+- integração com MongoDB
+- estrutura organizada para evolução de funcionalidades
+
+Este repositório representa a base técnica da aplicação (frontend, validação, autenticação e persistência).
+
+## Stack
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- MongoDB + Mongoose
+- Zod (validação)
+- bcryptjs (hash de senha)
+- Server Actions
+
+## Status do Projeto
+
+Em desenvolvimento ativo.
+
+Funcionalidades já implementadas:
+
+- telas iniciais de login, registro e dashboard
+- validação de formulário com Zod
+- fluxo de autenticação via Server Actions
+- criação e leitura de sessão no servidor
+- conexão com MongoDB
+- modelagem inicial de usuário com Mongoose
+- script local para testes de CRUD com usuário
+
+## Estrutura de Pastas
+
+```txt
+src/
+  app/
+    actions/          # server actions
+    login/            # página e componentes de login
+    register/         # página e componentes de cadastro
+    dashboard/        # área autenticada
+    components/       # componentes compartilhados de UI
+  lib/
+    auth/             # sessão/autenticação
+    db/               # conexão e models do MongoDB
+    errors/           # tratamento de erros de formulário
+    validations/      # schemas Zod
+  types/              # tipos compartilhados
+scripts/
+  test-user.ts        # script de teste local com MongoDB
+```
+
+## Pré-requisitos
+
+- Node.js 18+
+- npm
+- MongoDB local ou cloud
+
+## Configuração
+
+1. Instalar dependências:
+
+```bash
+npm install
+```
+
+2. Criar arquivo `.env.local` com:
+
+```env
+MONGO_URI=...
+SESSION_SECRET=...
+```
+
+## Executando o Projeto
+
+Desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Lint:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Teste de CRUD local com usuário:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run test:user
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Fluxo Atual de Autenticação
 
-## Deploy on Vercel
+- envio de formulário via `form action={...}` no frontend
+- processamento no servidor com Server Actions
+- validação com Zod
+- leitura de dados para autenticação
+- criação de sessão segura com cookie HttpOnly
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Convenções do Projeto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- código em inglês (nomes técnicos)
+- mensagens e interface em pt-BR quando aplicável
+- validações centralizadas em schemas
+- separação entre UI, actions, persistência e tipos
+
+## Roadmap Técnico (Resumo)
+
+- finalizar login com dados reais do banco
+- concluir fluxo real de cadastro
+- padronizar tratamento de erros de autenticação
+- evoluir dashboard com operações protegidas
