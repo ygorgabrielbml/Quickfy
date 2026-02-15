@@ -5,42 +5,50 @@ import User from "@/lib/db/models/users";
 import bcrypt from "bcryptjs";
 
 async function testUser() {
+  const passwordHash = await bcrypt.hash("123456", 12)
   try {
-    console.log("🔄 Conectando ao MongoDB...");
     await connectDB();
-    
-    console.log("🔄 Criando usuário de teste...");
-    
-    const passwordHash = await bcrypt.hash("senha123", 12);
-    
-    const user = await User.create({
-      name: "João Teste",
-      email: "joao@teste.com",
-      passwordHash: passwordHash,
+    console.log("Conectado ao banco de dados!" )
+
+    const email = "dev+learn1@quickfy.com";
+
+    await User.deleteMany({ email });
+    const createdUser = await User.create({
+      name: "Learning User",
+      email,
+      passwordHash,
       role: "customer"
     });
-    
-    console.log("✅ Usuário criado com sucesso!");
-    console.log("📋 Dados:", {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role
+
+    console.log("Usuário criado:", {
+      id: createdUser._id.toString(),
+      name: createdUser.name,
+      passwordHash: createdUser.passwordHash,
+      email: createdUser.email,
+      role: createdUser.role,
+    });
+
+    const foundUser = await User.findOne({ email });
+    console.log("Usuário encontrado:", {
+      id: foundUser?._id.toString(),
+      name: foundUser?.name,
+      email: foundUser?.email,
+      role: foundUser?.role,
     });
     
-    console.log("\n🔍 Buscando usuário...");
-    const found = await User.findOne({ email: "joao@teste.com" });
-    console.log("✅ Encontrado:", found?.name);
-    
-    console.log("\n🧹 Limpando teste...");
-    await User.deleteOne({ email: "joao@teste.com" });
-    console.log("✅ Teste concluído!");
-    
-    process.exit(0);
-    
+    await User.updateOne(
+      { email },
+      { name: "Learning User Updated", role: "company"}
+    );
+
+    const updatedUser = await User.findOne({ email });
+    console.log("Usuário atualizado: ", {
+      name: updatedUser?.name,
+      role: updatedUser?.role,
+    });
   } catch (error) {
-    console.error("❌ Erro:", error);
-    process.exit(1);
+    console.log("Erro ao conectar no BD:", error )
+    process.exit(1)
   }
 }
 
