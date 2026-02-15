@@ -1,7 +1,9 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { IUser } from "@/types/models";
 
-const UserSchema = new Schema<IUser>(
+type UserPersistence = Omit<IUser, "id">;
+
+const UserSchema = new Schema<UserPersistence>(
   {
     name: {
       type: String,
@@ -29,7 +31,7 @@ const UserSchema = new Schema<IUser>(
   }
 );
 
-const User: Model<IUser> =
-  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+const User: Model<UserPersistence> =
+  mongoose.models.User || mongoose.model<UserPersistence>("User", UserSchema);
 
 export default User;

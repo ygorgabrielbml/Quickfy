@@ -1,7 +1,7 @@
 // scripts/test-user.ts
 import "dotenv/config";  // ← ADICIONA ESSA LINHA NO TOPO!
 import { connectDB } from "@/lib/db/connection";
-import User from "@/lib/db/model/users";
+import User from "@/lib/db/models/users";
 import bcrypt from "bcryptjs";
 
 async function testUser() {

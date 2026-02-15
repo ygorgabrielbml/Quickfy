@@ -75,14 +75,3 @@ mongoose.connection.on("error", (err) => {
 mongoose.connection.on("disconnected", () => {
   console.log("🟡 Mongoose desconectado do MongoDB");
 });
-
-// Apenas utilizado em produção - Desligamento Elegante
-if (process.env.NODE_ENV !== "production") {
-  process.on("SIGINT", async () => {
-    await mongoose.connection.close();
-    console.log(
-      "Conexão MongoDB fechada devido ao encerramento da aplicação"
-    );
-    process.exit(0);
-  });
-}
