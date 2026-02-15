@@ -24,9 +24,9 @@ export function RegisterForm() {
   };
   
   return (
-    <form onSubmit={handleSubmit} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-2xl px-8">
-      <h1 className="text-white text-3xl mt-10 font-medium">Sign up</h1>
-      <p className="text-gray-400 text-sm mt-2">Please sign in to continue</p>
+    <form onSubmit={handleSubmit} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-xl px-8">
+      <h1 className="text-white text-3xl mt-10 font-medium">Criar conta</h1>
+      <p className="text-gray-400 text-sm mt-2">Preencha os dados para continuar</p>
 
       <div className="mt-6">
         <Input
@@ -34,7 +34,7 @@ export function RegisterForm() {
           type="text"
           value={formData.name}
           onChange={handleChange}
-          placeholder="Name"
+          placeholder="Nome"
           required
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/60" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -68,7 +68,7 @@ export function RegisterForm() {
           type={showPassword ? "text" : "password"}
           value={formData.password}
           onChange={handleChange}
-          placeholder="Password"
+          placeholder="Senha"
           required
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -90,7 +90,7 @@ export function RegisterForm() {
           <button
             type="button"
             onClick={() => setFormData({ ...formData, userType: 'customer' })}
-            className={`flex-1 py-3 px-4 rounded-lg border transition-all ${
+            className={`flex-1 py-3 px-4 rounded-lg border transition-all cursor-pointer ${
               formData.userType === 'customer'
                 ? 'bg-indigo-500/20 border-indigo-500 text-white'
                 : 'bg-white/5 border-white/10 text-white/60 hover:border-white/20'
@@ -101,13 +101,13 @@ export function RegisterForm() {
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              <span className="text-sm font-medium">Customer</span>
+              <span className="text-sm font-medium">Cliente</span>
             </div>
           </button>
           <button
             type="button"
             onClick={() => setFormData({ ...formData, userType: 'provider' })}
-            className={`flex-1 py-3 px-4 rounded-lg border transition-all ${
+            className={`flex-1 py-3 px-4 rounded-lg border transition-all cursor-pointer ${
               formData.userType === 'provider'
                 ? 'bg-indigo-500/20 border-indigo-500 text-white'
                 : 'bg-white/5 border-white/10 text-white/60 hover:border-white/20'
@@ -118,19 +118,19 @@ export function RegisterForm() {
                 <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                 <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
               </svg>
-              <span className="text-sm font-medium">Provider</span>
+              <span className="text-sm font-medium">Empresa</span>
             </div>
           </button>
         </div>
       </div>
 
       <AuthButton>
-        Sign up
+        Cadastrar
       </AuthButton>
 
       <p className="text-gray-400 text-sm mt-3 mb-11">
-        Already have an account?
-        <a href="/login" className="text-indigo-400 hover:underline ml-1">click here</a>
+        Já tem uma conta?
+        <a href="/login" className="text-indigo-400 hover:underline ml-1">clique aqui</a>
       </p>
     </form>
   );

@@ -21,9 +21,9 @@ export function LoginForm() {
   useFormErrors(state);
 
   return (
-    <form action={loginAction} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-2xl px-8">
-      <h1 className="text-white text-3xl mt-10 font-medium">Login</h1>
-      <p className="text-gray-400 text-sm mt-2">Please sign in to continue</p>
+    <form action={loginAction} className="w-full sm:w-87.5 text-center bg-white/6 border border-white/10 rounded-xl px-8">
+      <h1 className="text-white text-3xl mt-10 font-medium">Entrar</h1>
+      <p className="text-gray-400 text-sm mt-2">Faça login para continuar</p>
 
       <div className="mt-6">
         <Input
@@ -39,7 +39,7 @@ export function LoginForm() {
         <Input
           name="password"
           type={showPassword ? "text" : "password"}
-          placeholder="Password"
+          placeholder="Senha"
           icon={<LockIcon />}
           rightElement={
             <PasswordToggle 
@@ -57,14 +57,14 @@ export function LoginForm() {
           onChange={(e) => setRememberMe(e.target.checked)} 
         />
         <button type="button" className="text-sm text-indigo-400 hover:underline cursor-pointer">
-          Forget password?
+          Esqueceu a senha?
         </button>
       </div>
       <SubmitButton />
 
       <p className="text-gray-400 text-sm mt-3 mb-11">
-        Don't have an account?
-        <a href="/register" className="text-indigo-400 hover:underline ml-1">click here</a>
+        Não tem uma conta?
+        <a href="/register" className="text-indigo-400 hover:underline ml-1">clique aqui</a>
       </p>
     </form>
   );

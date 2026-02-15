@@ -3,15 +3,15 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-semibold text-white">Dashboard</h1>
-        <p className="text-gray-400 mt-1">Welcome back to Quickfy</p>
+        <p className="text-gray-400 mt-1">Bem-vindo de volta ao Quickfy</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-400 text-sm">Total Users</p>
-              <p className="text-white text-3xl font-semibold mt-2">1,234</p>
+              <p className="text-gray-400 text-sm">Total de Usuários</p>
+              <p className="text-white text-3xl font-semibold mt-2">1.234</p>
             </div>
             <div className="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
               <svg className="w-6 h-6 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -24,8 +24,8 @@ export default function DashboardPage() {
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-400 text-sm">Revenue</p>
-              <p className="text-white text-3xl font-semibold mt-2">$12.5k</p>
+              <p className="text-gray-400 text-sm">Receita</p>
+              <p className="text-white text-3xl font-semibold mt-2">R$ 12,5k</p>
             </div>
             <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
               <svg className="w-6 h-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,7 +38,7 @@ export default function DashboardPage() {
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-400 text-sm">Active Now</p>
+              <p className="text-gray-400 text-sm">Ativos Agora</p>
               <p className="text-white text-3xl font-semibold mt-2">89</p>
             </div>
             <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
@@ -51,7 +51,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-        <h2 className="text-xl font-semibold text-white mb-4">Recent Activity</h2>
+        <h2 className="text-xl font-semibold text-white mb-4">Atividade Recente</h2>
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="flex items-center gap-4 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
@@ -59,8 +59,8 @@ export default function DashboardPage() {
                 <span className="text-indigo-400 font-semibold">U{i}</span>
               </div>
               <div className="flex-1">
-                <p className="text-white text-sm">User {i} completed an action</p>
-                <p className="text-gray-400 text-xs mt-1">{i} hours ago</p>
+                <p className="text-white text-sm">Usuário {i} completou uma ação</p>
+                <p className="text-gray-400 text-xs mt-1">há {i} hora{i > 1 ? 's' : ''}</p>
               </div>
             </div>
           ))}

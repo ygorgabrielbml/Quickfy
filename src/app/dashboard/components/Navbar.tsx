@@ -12,12 +12,12 @@ export function Navbar() {
         <span className="text-white text-xl font-semibold">Quickfy</span>
       </div>
       <div className="flex items-center gap-5 text-gray-400">
-        <p className="text-sm">Hi! Admin</p>
+        <p className="text-sm">Olá! Admin</p>
         <button 
           onClick={() => logout()}
           className="border border-white/20 rounded-full text-sm px-4 py-1.5 hover:bg-white/5 transition-colors cursor-pointer"
         >
-          Logout
+          Sair
         </button>
       </div>
     </div>

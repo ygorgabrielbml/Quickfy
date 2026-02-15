@@ -1,6 +1,7 @@
 "use client"
 
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 const dashboardIcon = (
   <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -22,15 +23,24 @@ const chatIcon = (
 
 const sidebarLinks = [
   { name: "Dashboard", path: "/dashboard", icon: dashboardIcon },
-  { name: "Overview", path: "/dashboard/overview", icon: overviewIcon },
+  { name: "Visão Geral", path: "/dashboard/overview", icon: overviewIcon },
   { name: "Chat", path: "/dashboard/chat", icon: chatIcon },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="md:w-64 w-16 border-r border-white/10 min-h-screen pt-4 flex flex-col bg-black/20 backdrop-blur-sm">
+    <div className={`border-r border-white/10 min-h-screen pt-4 flex flex-col bg-black/20 backdrop-blur-sm transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'}`}>
+      <button
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className="mx-4 mb-4 p-2 hover:bg-white/5 rounded-lg transition-colors text-gray-400 hover:text-white"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${isCollapsed ? 'rotate-180' : ''}`}>
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+      </button>
       {sidebarLinks.map((item, index) => (
         <a
           href={item.path}
@@ -42,7 +52,7 @@ export function Sidebar() {
           }`}
         >
           {item.icon}
-          <p className="md:block hidden">{item.name}</p>
+          <p className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</p>
         </a>
       ))}
     </div>

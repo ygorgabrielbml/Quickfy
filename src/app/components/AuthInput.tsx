@@ -13,7 +13,7 @@ export function Input({
   ...rest
 }: InputProps) {
   return (
-    <div className="flex items-center w-full bg-white/5 ring-2 ring-white/10 focus-within:ring-indigo-500/60 h-12 rounded-full overflow-hidden pl-6 gap-2 transition-all relative">
+    <div className="flex items-center w-full bg-white/5 ring-2 ring-white/10 focus-within:ring-indigo-500/60 h-12 rounded-lg overflow-hidden pl-6 gap-2 transition-all relative">
       {icon}
       <input
         type={type}
