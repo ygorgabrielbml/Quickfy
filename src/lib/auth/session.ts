@@ -3,6 +3,9 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
 const secretKey = process.env.SESSION_SECRET;
+if (!secretKey) {
+  throw new Error("SESSION_SECRET (secret key) não definida no .env.local")
+}
 const encodedKey = new TextEncoder().encode(secretKey);
 
 // criar uma nova sessão
@@ -46,7 +49,7 @@ export async function decrypt(session: string | undefined = "") {
       algorithms: ["HS256"],
     });
     return payload;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

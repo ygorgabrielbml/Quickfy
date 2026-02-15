@@ -1,11 +1,12 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { loginSchema } from "../../lib/validations/auth";
-import { testUser } from "../../lib/data/users";
-import { createSession, deleteSession } from "../../lib/auth/session";
+import { FormState } from "@/types/errors";
+import { loginSchema } from "@/lib/validations/auth";
+import { testUser } from "@/lib/data/users";
+import { createSession, deleteSession } from "@/lib/auth/session";
 
-export async function login(prevState: any, formData: FormData) {
+export async function login(_prevState: FormState, formData: FormData) {
   const result = loginSchema.safeParse(Object.fromEntries(formData));
 
   if (!result.success) {
