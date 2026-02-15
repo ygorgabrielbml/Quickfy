@@ -15,7 +15,8 @@ export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -34,6 +35,7 @@ export function RegisterForm() {
           type="text"
           value={formData.name}
           onChange={handleChange}
+          autoComplete="name"
           placeholder="Nome"
           required
           icon={
@@ -51,6 +53,7 @@ export function RegisterForm() {
           type="email"
           value={formData.email}
           onChange={handleChange}
+          autoComplete="email"
           placeholder="Email"
           required
           icon={
@@ -68,6 +71,7 @@ export function RegisterForm() {
           type={showPassword ? "text" : "password"}
           value={formData.password}
           onChange={handleChange}
+          autoComplete="new-password"
           placeholder="Senha"
           required
           icon={
@@ -89,7 +93,7 @@ export function RegisterForm() {
         <div className="flex gap-3">
           <button
             type="button"
-            onClick={() => setFormData({ ...formData, userType: 'customer' })}
+            onClick={() => setFormData((prev) => ({ ...prev, userType: "customer" }))}
             className={`flex-1 py-3 px-4 rounded-lg border transition-all cursor-pointer ${
               formData.userType === 'customer'
                 ? 'bg-indigo-500/20 border-indigo-500 text-white'
@@ -106,7 +110,7 @@ export function RegisterForm() {
           </button>
           <button
             type="button"
-            onClick={() => setFormData({ ...formData, userType: 'company' })}
+            onClick={() => setFormData((prev) => ({ ...prev, userType: "company" }))}
             className={`flex-1 py-3 px-4 rounded-lg border transition-all cursor-pointer ${
               formData.userType === 'company'
                 ? 'bg-indigo-500/20 border-indigo-500 text-white'
