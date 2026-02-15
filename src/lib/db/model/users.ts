@@ -1,14 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-
-interface IUser {
-  _id: mongoose.Types.ObjectId;
-  name: string;
-  email: string;
-  passwordHash: string;
-  role: "customer" | "company" | "admin";
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { IUser } from "@/types/models";
 
 const UserSchema = new Schema<IUser>(
   {

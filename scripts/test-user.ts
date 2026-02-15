@@ -1,6 +1,7 @@
 // scripts/test-user.ts
+import "dotenv/config";  // ← ADICIONA ESSA LINHA NO TOPO!
 import { connectDB } from "@/lib/db/connection";
-import User from "@/lib/db/models/User";
+import User from "@/lib/db/model/users";
 import bcrypt from "bcryptjs";
 
 async function testUser() {
@@ -10,10 +11,8 @@ async function testUser() {
     
     console.log("🔄 Criando usuário de teste...");
     
-    // Hash da senha
     const passwordHash = await bcrypt.hash("senha123", 12);
     
-    // Criar usuário
     const user = await User.create({
       name: "João Teste",
       email: "joao@teste.com",
@@ -29,12 +28,10 @@ async function testUser() {
       role: user.role
     });
     
-    // Buscar o usuário
     console.log("\n🔍 Buscando usuário...");
     const found = await User.findOne({ email: "joao@teste.com" });
     console.log("✅ Encontrado:", found?.name);
     
-    // Limpar (deletar o teste)
     console.log("\n🧹 Limpando teste...");
     await User.deleteOne({ email: "joao@teste.com" });
     console.log("✅ Teste concluído!");

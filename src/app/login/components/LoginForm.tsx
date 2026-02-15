@@ -1,15 +1,15 @@
 "use client"
 
-import { Input } from "../../components/AuthInput";
-import { PasswordToggle } from "../../components/PasswordToggle";
-import { EmailIcon, LockIcon } from "../../components/Icons";
-import { FieldError } from "../../components/ui/FieldError";
+import { Input } from "@/app/components/AuthInput";
+import { PasswordToggle } from "@/app/components/PasswordToggle";
+import { EmailIcon, LockIcon } from "@/app/components/Icons";
+import { FieldError } from "@/app/components/ui/FieldError";
 import { RememberMeCheckbox } from "./RememberMe";
 import { SubmitButton } from "./SubmitButton";
 import { useState } from 'react';
 import { useActionState } from 'react';
-import { useFormErrors } from '../../../lib/errors/useFormErrors';
-import { login } from '../../actions/auth';
+import { useFormErrors } from '@/lib/errors/useFormErrors';
+import { login } from '@/app/actions/auth';
 
 export function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);

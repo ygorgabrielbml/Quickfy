@@ -1,8 +1,8 @@
 "use client"
 
-import { Input } from "../../components/AuthInput";
-import { AuthButton } from "../../components/AuthButton";
-import { PasswordToggle } from "../../components/PasswordToggle";
+import { Input } from "@/app/components/AuthInput";
+import { AuthButton } from "@/app/components/AuthButton";
+import { PasswordToggle } from "@/app/components/PasswordToggle";
 import { useState } from 'react';
 
 export function RegisterForm() {

@@ -1,6 +1,6 @@
 "use client"
 
-import { logout } from "../../actions/auth";
+import { logout } from "@/app/actions/auth";
 
 export function Navbar() {
   return (
