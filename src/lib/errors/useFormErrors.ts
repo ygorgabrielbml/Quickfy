@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from 'react';
-import { FormState } from './types';
+import { FormState } from "@/types/errors";
 import toast from 'react-hot-toast';
 
 export function useFormErrors(state: FormState) {

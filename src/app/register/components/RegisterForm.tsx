@@ -10,7 +10,7 @@ export function RegisterForm() {
     name: '',
     email: '',
     password: '',
-    userType: '' as '' | 'customer' | 'provider'
+    userType: '' as '' | 'customer' | 'company'
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -106,9 +106,9 @@ export function RegisterForm() {
           </button>
           <button
             type="button"
-            onClick={() => setFormData({ ...formData, userType: 'provider' })}
+            onClick={() => setFormData({ ...formData, userType: 'company' })}
             className={`flex-1 py-3 px-4 rounded-lg border transition-all cursor-pointer ${
-              formData.userType === 'provider'
+              formData.userType === 'company'
                 ? 'bg-indigo-500/20 border-indigo-500 text-white'
                 : 'bg-white/5 border-white/10 text-white/60 hover:border-white/20'
             }`}

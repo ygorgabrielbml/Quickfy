@@ -1,21 +1,21 @@
-import { Document, Types } from "mongoose";
+export type UserRole = "customer" | "company" | "admin";
 
-// Interface User
-export interface IUser extends Document {
-  _id: Types.ObjectId;
+// App/domain user shape (no Mongoose-specific types here)
+export interface IUser {
+  id: string;
   name: string;
   email: string;
   passwordHash: string;
-  role: "customer" | "company" | "admin";
+  role: UserRole;
   createdAt: Date;
   updatedAt: Date;
 }
 
-// Interface RefreshToken
-export interface IRefreshToken extends Document {
-  _id: Types.ObjectId;
+// App/domain refresh token shape
+export interface IRefreshToken {
+  id: string;
   token: string;
-  userId: Types.ObjectId;
+  userId: string;
   expiresAt: Date;
   createdAt: Date;
   updatedAt: Date;

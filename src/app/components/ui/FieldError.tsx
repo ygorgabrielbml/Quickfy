@@ -1,4 +1,4 @@
-import { FieldError as FieldErrorType } from '../../../lib/errors/types';
+import { FieldError as FieldErrorType } from "@/types/errors";
 
 interface FieldErrorProps {
   message?: FieldErrorType;
