@@ -6,7 +6,7 @@ import { EmailIcon, LockIcon } from "@/app/components/Icons";
 import { FieldError } from "@/app/components/ui/FieldError";
 import { RememberMeCheckbox } from "./RememberMe";
 import { SubmitButton } from "./SubmitButton";
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useActionState } from 'react';
 import { useFormErrors } from '@/lib/errors/useFormErrors';
 import { login } from '@/app/actions/auth.actions';
@@ -14,10 +14,36 @@ import { login } from '@/app/actions/auth.actions';
 export function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const [state, loginAction] = useActionState(login, undefined);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  console.log('LoginForm state:', state);
-  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Sync browser autofill values into state to avoid placeholder glitches on rerenders.
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const autofilledEmail = emailRef.current?.value ?? "";
+      const autofilledPassword = passwordRef.current?.value ?? "";
+
+      if (!autofilledEmail && !autofilledPassword) return;
+
+      setFormData((prev) => ({
+        email: prev.email || autofilledEmail,
+        password: prev.password || autofilledPassword,
+      }));
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
   useFormErrors(state);
 
   return (
@@ -27,8 +53,12 @@ export function LoginForm() {
 
       <div className="mt-6">
         <Input
+          ref={emailRef}
           name="email"
           type="email"
+          value={formData.email}
+          onChange={handleChange}
+          autoComplete="username"
           placeholder="Email"
           icon={<EmailIcon />}
         />
@@ -37,8 +67,12 @@ export function LoginForm() {
 
       <div className="mt-4">
         <Input
+          ref={passwordRef}
           name="password"
           type={showPassword ? "text" : "password"}
+          value={formData.password}
+          onChange={handleChange}
+          autoComplete="current-password"
           placeholder="Senha"
           icon={<LockIcon />}
           rightElement={
