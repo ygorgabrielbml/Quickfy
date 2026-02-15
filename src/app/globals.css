@@ -42,6 +42,11 @@ input:-moz-autofill {
   background-image: none !important;
   color: white !important;
   caret-color: white !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+}
+
+input:-moz-autofill-preview {
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 /* Força placeholder a aparecer */
